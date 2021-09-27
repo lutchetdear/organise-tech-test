@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect, useCallback } from 'react'
+import SurveyList from './components/SurveyList'
 
-function App() {
+const App = () => {
+  const [surveys, setSurveys] = useState([])
+  
+  const fetchSurveys = useCallback(async () => {
+    const response = await fetch("http://212.71.234.97/surveys/")
+    const data = await response.json()
+    setSurveys(data)
+  }, [])
+
+  useEffect(() => {
+    fetchSurveys()
+  }, [fetchSurveys])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <h1>Surveys</h1>
+      <SurveyList surveys={surveys} />
+    </React.Fragment>
   );
 }
 

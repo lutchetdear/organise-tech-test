@@ -5,9 +5,58 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding-left: 30px;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+table {
+  /* this is needed to make border work on tr elements (e.g., .survey_row) */
+  border-collapse: collapse;
+}
+
+.survey_row {
+  border-bottom: 1px solid #ccc;
+}
+
+tr.clickable {
+  cursor: pointer;
+  color: #09a;
+}
+
+tr.clickable:hover {
+  color: #fff;
+  background-color: #09a;
+}
+
+.survey_row td, thead tr td {
+  padding: 8px 16px;
+}
+
+thead tr td {
+  font-weight: bold;
+  background-color: #e4f2f2;
+  border-bottom: 2px solid #aaa;
+}
+
+#survey_list {
+  margin-bottom: 1em;
+}
+
+#hide_answers_button, #toggle_answer_mode_button {
+  color: #09a;
+  border: 1px solid #09a;
+  padding: 12px;
+  display: inline-block;
+  border-radius: 12px;
+  margin-bottom: 2em;
+}
+
+#hide_answers_button:hover, #toggle_answer_mode_button:hover {
+  cursor: pointer;
+  color: #fff;
+  background-color: #09a;
 }
