@@ -3,7 +3,7 @@ import axios from 'axios'
 import SurveyList from './components/SurveyList'
 
 const App = () => {
-  
+
   const [surveys, setSurveys] = useState([])
 
   const fetchSurveys = () => {
@@ -25,18 +25,3 @@ const App = () => {
 }
 
 export default App;
-
-
-// old version using fetch and useCallback instead of axios:
-
-// import React, { useState, useEffect, useCallback } from 'react'
-
-// const fetchSurveys = useCallback(async () => {
-//   const response = await fetch("http://212.71.234.97/surveys/")
-//   const data = await response.json()
-//   setSurveys(data)
-// }, [])
-
-// useEffect(() => {
-//   fetchSurveys()
-// }, [fetchSurveys])
