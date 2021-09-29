@@ -4,10 +4,6 @@ import SurveyAnswer from './SurveyAnswer'
 
 const SurveyAnswers = (props) => {
 
-    useEffect(() => {
-        console.log(props.surveyId)
-    }, [props.surveyId])
-
     const API_URL = "http://212.71.234.97/survey/" + props.surveyId.toString() + "/answers"
 
     const [answers, setAnswers] = useState([])
