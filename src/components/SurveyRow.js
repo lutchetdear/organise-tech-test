@@ -1,13 +1,8 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
 
 const SurveyRow = (props) => {
 
-    const dispatch = useDispatch()
-
-    const surveyRowClickHandler = () => {
-        dispatch({type: 'showAnswers', value: props.id})
-    }
+    const surveyRowClickHandler = props.doShowAnswers
 
     return (
         <tr className="survey_row clickable" survey_id={props.surveyData.id} onClick={surveyRowClickHandler}>

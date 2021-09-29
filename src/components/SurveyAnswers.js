@@ -4,13 +4,19 @@ import SurveyAnswer from './SurveyAnswer'
 
 const SurveyAnswers = (props) => {
 
-    const API_URL = "http://212.71.234.97/survey/" + props.surveyId + "/answers"
+    useEffect(() => {
+        console.log(props.surveyId)
+    }, [props.surveyId])
+
+    const API_URL = "http://212.71.234.97/survey/" + props.surveyId.toString() + "/answers"
 
     const [answers, setAnswers] = useState([])
 
     const fetchAnswers = () => {
         axios.get(API_URL).then((response) => {
-            // just get the first 100 rows; otherwise it's too many (thousands)
+            // just get the first 100 rows; otherwise
+            // it's too many (thousands) and the browser hangs
+            // as it tries to render all the rows
             setAnswers(response.data.slice(0, 100))
         })
     }
