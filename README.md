@@ -1,70 +1,79 @@
-# Getting Started with Create React App
+# sparkle-frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**sparkle-frontend** is a small toy application that shows survey results.
 
-## Available Scripts
+It retrieves the data from a separate application, which serves as a backend. The backend lives at http://212.71.234.97.
 
-In the project directory, you can run:
+The API endpoints for the backend are documented separately.
 
-### `yarn start`
+This application can show a selection of survey results as text.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+It can also show pie charts that visualize the answers to survey questions.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+It has six components in addition to the 'main' (App) component:
 
-### `yarn test`
+* SurveyList
+* SurveyRow
+* SurveyAnswers
+* SurveyAnswer
+* SurveyChartAnswers
+* SurveyChartAnswer
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The components work roughly like this:
 
-### `yarn build`
+## App shows SurveyList
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**App** also manages most of the state in the application.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+There are four state variables in **App**:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* surveys
+* showAnswers
+* showAnswersForSurveyId
+* answersMode
 
-### `yarn eject`
+These are passed as props to **SurveyList**.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Also passed as props to **SurveyList** are three event handler functions:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* hideAnswersClickHandler
+* toggleAnswersModeHandler
+* doShowAnswers
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+**hideAnswersClickHandler** is called when the user clicks the 'Hide Answers' button, which appears in **SurveyList** when survey answers (in text or chart form) are being shown.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**toggleAnswersModeHandler** is called when the user clicks the 'Show Answers as Charts' or 'Show Answers as Text' buttons, one of which should appear when survey answers are being shown. If answers are currently being shown as text, the 'Show Answers as Charts' button should be shown. If answers are being shown as charts, the 'Show Answers as Text' button should be shown.
 
-## Learn More
+**doShowAnswers** is called when the user clicks one of the **SurveyRow**s.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+It's extremely possible that some or all of these functions would have been better placed somewhere else (such as in **SurveyList**).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## SurveyList shows SurveyRow rows and SurveyAnswers
 
-### Code Splitting
+**SurveyList** shows a table whose rows are rendered **SurveyRow** components.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+If answers are being shown, **SurveyList** also shows the survey answers.
 
-### Analyzing the Bundle Size
+If the answers are being shown in text mode (i.e., if **answersMode** is 'text'), these are shown by **SurveyAnswers**.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+If the answers are being shown as charts, these are shown by **SurveyChartAnswers**.
 
-### Making a Progressive Web App
+**SurveyList** has some state which is passed down from **SurveyList**.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## A SurveyRow includes 'high level' information about a single survey
 
-### Advanced Configuration
+A **SurveyRow** includes 'high level' information about a single survey (the ID of the survey, the title of the survey, how many questions are in it, who made it, and when it was made), but no questions or answers.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## SurveyAnswers shows a table whose rows are SurveyAnswer rows
 
-### Deployment
+**SurveyAnswers** is shown when answers are shown in text mode.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+**SurveyAnswers** only shows 100 answers, because showing the tens of thousands of answers for a survey causes the browser to hang.
 
-### `yarn build` fails to minify
+## SurveyChartAnswers shows one SurveyChartAnswer (which is a single pie chart) for each question in the survey
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**SurveyChartAnswers** is shown when answers are shown in text mode.
+
+## SurveyChartAnswer renders a single pie chart that visualizes the answers to a single question
+
+**SurveyChartAnswer** uses the highcharts-react-official library to render a pie chart from survey answers.
