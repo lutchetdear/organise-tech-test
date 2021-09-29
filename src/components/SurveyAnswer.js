@@ -1,7 +1,6 @@
 import React from 'react'
 
 const SurveyAnswer = (props) => {
-    //console.log(props.answerData)
     return (
         <tr className="survey_row">
             <td>{props.answerData.id}</td>

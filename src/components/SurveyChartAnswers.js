@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import SurveyChartAnswer from './SurveyChartAnswer'
 
 const SurveyChartAnswers = (props) => {
@@ -7,20 +8,15 @@ const SurveyChartAnswers = (props) => {
 
     const [surveyData, setSurveyData] = useState([])
 
-    const fetchSurveyData = useCallback(async () => {
-        const response = await fetch(API_URL)
-        const data = await response.json()
-        setSurveyData([data])
-    }, [API_URL])
+    const fetchSurveyData = () => {
+        axios.get(API_URL).then((response) => {
+            setSurveyData([response.data])
+        })
+    }
 
     useEffect(() => {
         fetchSurveyData()
-    }, [fetchSurveyData])
-
-    useEffect(() => {
-        // console.log("updated surveyData: ", surveyData)
-        console.log("surveyData[0].questions: ", surveyData.length > 0 ? surveyData[0].questions : '')
-    }, [surveyData])
+    }, [API_URL])
 
     return (
         <div>

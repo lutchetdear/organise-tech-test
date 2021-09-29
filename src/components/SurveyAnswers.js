@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import SurveyAnswer from './SurveyAnswer'
 
 const SurveyAnswers = (props) => {
@@ -7,17 +8,16 @@ const SurveyAnswers = (props) => {
 
     const [answers, setAnswers] = useState([])
 
-    const fetchAnswers = useCallback(async () => {
-        const response = await fetch(API_URL)
-        const data = await response.json()
-        // just get the first 100 rows; otherwise it's too many (thousands)
-        // setAnswers(data)
-        setAnswers(data.slice(0, 100))
-    }, [API_URL])
+    const fetchAnswers = () => {
+        axios.get(API_URL).then((response) => {
+            // just get the first 100 rows; otherwise it's too many (thousands)
+            setAnswers(response.data.slice(0, 100))
+        })
+    }
 
     useEffect(() => {
         fetchAnswers()
-    }, [fetchAnswers])
+    }, [API_URL])
 
     return (
         <table>

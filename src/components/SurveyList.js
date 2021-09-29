@@ -14,7 +14,6 @@ const SurveyList = (props) => {
     }
     const answersShown = useSelector(state => state.showAnswers)
     const answersShownSurveyId = useSelector(state => state.showAnswersForSurveyId)
-    // add toggle for 'answersMode' - chart or text
     const answersMode = useSelector(state => state.answersMode)
     return (
         <React.Fragment>
@@ -36,7 +35,6 @@ const SurveyList = (props) => {
             {answersShown ? <div id="toggle_answer_mode_button" onClick={toggleAnswersModeHandler}>{answersMode === 'text' ? 'Show Answers as Charts' : 'Show Answers as Text (first 100 only)'}</div>:''}
             {answersShown ? <h2>Answers to Survey ID {answersShownSurveyId}:</h2> : ''}
             {answersShown ? (answersMode === 'text' ? <SurveyAnswers surveyId={answersShownSurveyId} /> : <SurveyChartAnswers surveyId={answersShownSurveyId} />) : ''}
-            {/*{answersShown ? <SurveyAnswers surveyId={answersShownSurveyId} /> : ''} */}
         </React.Fragment>
     );
 }

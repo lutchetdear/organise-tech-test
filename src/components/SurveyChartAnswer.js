@@ -1,5 +1,5 @@
-import React, { useState, useCallback, useEffect } from 'react'
-
+import React, { useState, useEffect } from 'react'
+import axios from 'axios';
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
@@ -9,19 +9,15 @@ const SurveyChartAnswer = (props) => {
 
     const [answerData, setAnswerData] = useState([])
 
-    const fetchAnswerData = useCallback(async () => {
-        const response = await fetch(API_URL)
-        const data = await response.json()
-        setAnswerData(data)
-    }, [API_URL])
+    const fetchAnswerData = () => {
+        axios.get(API_URL).then((response) => {
+            setAnswerData(response.data)
+        })
+    }
 
     useEffect(() => {
         fetchAnswerData()
-    }, [fetchAnswerData])
-
-    useEffect(() => (
-        console.log(answerData)
-    ), [answerData])
+    }, [API_URL])
 
     const rawChartData = Object.values(answerData).map(h => h.answer_content);
     const chartPossibleValues = rawChartData.filter((item, i, ar) => ar.indexOf(item) === i);  // get unique vals in rawChartData
@@ -37,12 +33,12 @@ const SurveyChartAnswer = (props) => {
         },
         plotOptions: {
             pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-            }
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                }
             }
         },
         series: [
