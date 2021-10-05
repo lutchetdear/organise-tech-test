@@ -37,8 +37,6 @@ const SurveyChartAnswer = (props) => {
     return ar.indexOf(item) === i;
   }); // get unique vals in rawChartData
 
-  console.log(chartPossibleValues);
-
   const chartData = chartPossibleValues.map((answer) => ({
     name: answer,
     y: rawChartData.reduce((n, val) => n + (val === answer), 0),
