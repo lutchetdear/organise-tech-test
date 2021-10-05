@@ -1,0 +1,9 @@
+.filter-text {
+  display: flex;
+  flex-direction: column;
+  max-width: 150px;
+
+  label {
+    margin-bottom: 5px;
+  }
+}

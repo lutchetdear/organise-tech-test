@@ -2,10 +2,7 @@ import React from "react";
 import "./filter-selector.styles.scss";
 
 const FilterSelector = ({ choices, label, changeHandler }) => {
-  const handleChange = (e) => {
-    console.log(e.target.value);
-    changeHandler(e.target.value);
-  };
+  const handleChange = (e) => changeHandler(e.target.value);
 
   return (
     <div className="filter-selector">

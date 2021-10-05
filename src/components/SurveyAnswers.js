@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+
 import SurveyAnswer from "./SurveyAnswer";
-import FilterSelector from "./filter-selector/filter-selector.component";
+import { filterData } from "../utils/data.utils";
 
 const SurveyAnswers = (props) => {
   const API_URL =
     "http://212.71.234.97/survey/" + props.surveyId.toString() + "/answers";
-  const EMPLOYMENT_STATUSES = ["employed", "self_employed", "other", "retired"];
 
   const [answers, setAnswers] = useState([]);
-  const [answerFilter, setAnswerFilter] = useState("");
   const [error, setError] = useState(false);
 
   const fetchAnswers = () => {
@@ -30,12 +29,11 @@ const SurveyAnswers = (props) => {
     await fetchAnswers();
   }, [API_URL]);
 
-  const filteredAnswers =
-    props.filter !== "all"
-      ? answers.filter(
-          (answer) => answer.member.employment_status === props.filter
-        )
-      : answers;
+  const filteredAnswers = filterData(
+    props.workplaceFilter,
+    props.employmentStatusFilter,
+    answers
+  );
 
   return (
     <div className="survey-answers">

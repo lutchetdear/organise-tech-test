@@ -4,6 +4,7 @@ import SurveyRow from "./SurveyRow";
 import SurveyAnswers from "./SurveyAnswers";
 import SurveyChartAnswers from "./SurveyChartAnswers";
 import FilterSelector from "./filter-selector/filter-selector.component";
+import FilterText from "./filter-text/filter-text.component";
 
 const SurveyList = (props) => {
   const answersShown = props.showAnswers;
@@ -14,7 +15,8 @@ const SurveyList = (props) => {
 
   const EMPLOYMENT_STATUSES = ["employed", "self_employed", "other", "retired"];
 
-  const [answerFilter, setAnswerFilter] = useState("all");
+  const [employmentStatusFilter, setEmploymentStatusFilter] = useState("all");
+  const [workplaceFilter, setWorkplaceFilter] = useState("");
 
   return (
     <React.Fragment>
@@ -42,15 +44,17 @@ const SurveyList = (props) => {
       <FilterSelector
         label="Employment Status"
         choices={EMPLOYMENT_STATUSES}
-        changeHandler={(newFilter) => setAnswerFilter(newFilter)}
+        changeHandler={(newFilter) => setEmploymentStatusFilter(newFilter)}
+      />
+      <FilterText
+        label="Workplace"
+        changeHandler={(newFilter) => setWorkplaceFilter(newFilter)}
       />
       {answersShown ? (
         <div id="hide_answers_button" onClick={hideAnswersClickHandler}>
           Hide Answers
         </div>
-      ) : (
-        ""
-      )}
+      ) : null}
       {answersShown ? (
         <div id="toggle_answer_mode_button" onClick={toggleAnswersModeHandler}>
           {answersMode === "text"
@@ -60,24 +64,22 @@ const SurveyList = (props) => {
       ) : null}
       {answersShown ? (
         <h2>Answers to Survey ID {answersShownSurveyId.toString()}:</h2>
-      ) : (
-        ""
-      )}
+      ) : null}
       {answersShown ? (
         answersMode === "text" ? (
           <SurveyAnswers
             surveyId={answersShownSurveyId}
-            filter={answerFilter}
+            employmentStatusFilter={employmentStatusFilter}
+            workplaceFilter={workplaceFilter}
           />
         ) : (
           <SurveyChartAnswers
             surveyId={answersShownSurveyId}
-            filter={answerFilter}
+            employmentStatusFilter={employmentStatusFilter}
+            workplaceFilter={workplaceFilter}
           />
         )
-      ) : (
-        ""
-      )}
+      ) : null}
     </React.Fragment>
   );
 };

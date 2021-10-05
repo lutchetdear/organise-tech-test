@@ -26,10 +26,11 @@ const SurveyChartAnswers = (props) => {
               surveyId={props.surveyId}
               questionId={question.question_id}
               questionText={question.question_text}
-              filter={props.filter}
+              employmentStatusFilter={props.employmentStatusFilter}
+              workplaceFilter={props.workplaceFilter}
             />
           ))
-        : ""}
+        : null}
     </div>
   );
 };
