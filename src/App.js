@@ -1,53 +1,56 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import SurveyList from './components/SurveyList'
+import React, { useState, useEffect } from "react";
+
+import axios from "axios";
+
+import SurveyList from "./components/SurveyList";
+import Header from "./components/header/header.component";
 
 const App = () => {
+  const [surveys, setSurveys] = useState([]);
 
-  const [surveys, setSurveys] = useState([])
-
-  const [showAnswers, setShowAnswers] = useState(false)
+  const [showAnswers, setShowAnswers] = useState(false);
   const hideAnswersClickHandler = () => {
-    setShowAnswers(false)
-  }
+    setShowAnswers(false);
+  };
 
-  const [showAnswersForSurveyId, setShowAnswersForSurveyId] = useState(null)
+  const [showAnswersForSurveyId, setShowAnswersForSurveyId] = useState(null);
 
-  const [answersMode, setAnswersMode] = useState('text')
+  const [answersMode, setAnswersMode] = useState("text");
   const toggleAnswersModeHandler = () => {
-    setAnswersMode(answersMode === 'text' ? 'chart' : 'text')
-  }
+    setAnswersMode(answersMode === "text" ? "chart" : "text");
+  };
 
   const fetchSurveys = () => {
     axios.get("http://212.71.234.97/surveys/").then((response) => {
-      setSurveys(response.data)
-    })
-  }
+      setSurveys(response.data);
+    });
+  };
 
   const doShowAnswers = (event) => {
-    const trElem = event.target.parentNode
-    const surveyId = trElem.getAttribute("survey_id")
-    setShowAnswers(true)
-    setShowAnswersForSurveyId(surveyId)
-  }
+    const trElem = event.target.parentNode;
+    const surveyId = trElem.getAttribute("survey_id");
+    setShowAnswers(true);
+    setShowAnswersForSurveyId(surveyId);
+  };
 
   useEffect(() => {
-    fetchSurveys()
-  }, [])
+    fetchSurveys();
+  }, []);
 
   return (
     <React.Fragment>
-      <h1>Surveys</h1>
+      <Header />
       <SurveyList
-        surveys={surveys} 
-        showAnswers={showAnswers} 
+        surveys={surveys}
+        showAnswers={showAnswers}
         hideAnswersClickHandler={hideAnswersClickHandler}
-        showAnswersForSurveyId={showAnswersForSurveyId} 
-        answersMode={answersMode} 
-        toggleAnswersModeHandler={toggleAnswersModeHandler} 
-        doShowAnswers={doShowAnswers} />
+        showAnswersForSurveyId={showAnswersForSurveyId}
+        answersMode={answersMode}
+        toggleAnswersModeHandler={toggleAnswersModeHandler}
+        doShowAnswers={doShowAnswers}
+      />
     </React.Fragment>
   );
-}
+};
 
 export default App;
