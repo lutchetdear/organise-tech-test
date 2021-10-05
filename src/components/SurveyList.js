@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import SurveyRow from "./SurveyRow";
 import SurveyAnswers from "./SurveyAnswers";
 import SurveyChartAnswers from "./SurveyChartAnswers";
-import FilterSelector from "./FilterSelector";
+import FilterSelector from "./filter-selector/filter-selector.component";
 
 const SurveyList = (props) => {
   const answersShown = props.showAnswers;
@@ -40,6 +40,7 @@ const SurveyList = (props) => {
         </tbody>
       </table>
       <FilterSelector
+        label="Employment Status"
         choices={EMPLOYMENT_STATUSES}
         changeHandler={(newFilter) => setAnswerFilter(newFilter)}
       />

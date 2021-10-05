@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import SurveyAnswer from "./SurveyAnswer";
-import FilterSelector from "./FilterSelector";
+import FilterSelector from "./filter-selector/filter-selector.component";
 
 const SurveyAnswers = (props) => {
   const API_URL =

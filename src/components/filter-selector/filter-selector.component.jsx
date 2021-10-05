@@ -1,6 +1,7 @@
 import React from "react";
+import "./filter-selector.styles.scss";
 
-const FilterSelector = ({ choices, changeHandler }) => {
+const FilterSelector = ({ choices, label, changeHandler }) => {
   const handleChange = (e) => {
     console.log(e.target.value);
     changeHandler(e.target.value);
@@ -8,6 +9,7 @@ const FilterSelector = ({ choices, changeHandler }) => {
 
   return (
     <div className="filter-selector">
+      <label>{label}</label>
       <select onChange={handleChange}>
         <option value="all">All</option>
         {choices.map((choice) => (
