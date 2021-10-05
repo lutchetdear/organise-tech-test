@@ -9,42 +9,33 @@ const SurveyAnswers = (props) => {
   const EMPLOYMENT_STATUSES = ["employed", "self_employed", "other", "retired"];
 
   const [answers, setAnswers] = useState([]);
-  const [filteredAnswers, setFilteredAnswers] = useState([]);
   const [answerFilter, setAnswerFilter] = useState("");
   const [error, setError] = useState(false);
 
-  const fetchAnswers = async () => {
+  const fetchAnswers = () => {
     try {
-      let answers = await axios.get(API_URL);
-      answers = answers.data.slice(0, 100);
-      setAnswers(answers);
-      if (answerFilter)
-        answers = answers.filter(
-          (answer) => answer.member.employment_status !== answerFilter
-        );
-      setFilteredAnswers(answers);
+      axios.get(API_URL).then((response) => {
+        // just get the first 100 rows; otherwise
+        // it's too many (thousands) and the browser hangs
+        // as it tries to render all the rows
+        setAnswers(response.data.slice(0, 100));
+      });
     } catch (e) {
       console.error(e);
       setError(true);
     }
   };
 
-  const handleEmploymentFilterChange = (newFilter) => {
-    if (newFilter === "all") {
-      setFilteredAnswers(answers);
-      return;
-    }
-
-    setAnswerFilter(newFilter);
-    setFilteredAnswers(
-      answers.filter((answer) => answer.member.employment_status === newFilter)
-    );
-    console.log(filteredAnswers);
-  };
-
   useEffect(async () => {
     await fetchAnswers();
   }, [API_URL]);
+
+  const filteredAnswers =
+    props.filter !== "all"
+      ? answers.filter(
+          (answer) => answer.member.employment_status === props.filter
+        )
+      : answers;
 
   return (
     <div className="survey-answers">
@@ -54,10 +45,6 @@ const SurveyAnswers = (props) => {
         </div>
       ) : (
         <div className="answer-table">
-          <FilterSelector
-            choices={EMPLOYMENT_STATUSES}
-            changeHandler={handleEmploymentFilterChange}
-          />
           <table>
             <thead>
               <tr>
