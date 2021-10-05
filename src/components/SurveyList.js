@@ -4,7 +4,6 @@ import SurveyAnswers from './SurveyAnswers'
 import SurveyChartAnswers from './SurveyChartAnswers'
 
 const SurveyList = (props) => {
-
     const answersShown = props.showAnswers
     const hideAnswersClickHandler = props.hideAnswersClickHandler
 
