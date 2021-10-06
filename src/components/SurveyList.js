@@ -7,11 +7,15 @@ import FilterSelector from "./filter-selector/filter-selector.component";
 import FilterText from "./filter-text/filter-text.component";
 
 const SurveyList = (props) => {
-  const answersShown = props.showAnswers;
-  const hideAnswersClickHandler = props.hideAnswersClickHandler;
-  const answersShownSurveyId = props.showAnswersForSurveyId;
-  const answersMode = props.answersMode;
-  const toggleAnswersModeHandler = props.toggleAnswersModeHandler;
+  const {
+    showAnswers,
+    hideAnswersClickHandler,
+    showAnswersForSurveyId,
+    answersMode,
+    toggleAnswersModeHandler,
+    surveys,
+    doShowAnswers,
+  } = props;
 
   const EMPLOYMENT_STATUSES = ["employed", "self_employed", "other", "retired"];
 
@@ -31,12 +35,12 @@ const SurveyList = (props) => {
           </tr>
         </thead>
         <tbody>
-          {props.surveys.map((survey) => (
+          {surveys.map((survey) => (
             <SurveyRow
               key={survey.id}
               id={survey.id}
               surveyData={survey}
-              doShowAnswers={props.doShowAnswers.bind(survey.id)}
+              doShowAnswers={doShowAnswers.bind(survey.id)}
             />
           ))}
         </tbody>
@@ -50,31 +54,31 @@ const SurveyList = (props) => {
         label="Workplace"
         changeHandler={(newFilter) => setWorkplaceFilter(newFilter)}
       />
-      {answersShown ? (
+      {showAnswers ? (
         <div id="hide_answers_button" onClick={hideAnswersClickHandler}>
           Hide Answers
         </div>
       ) : null}
-      {answersShown ? (
+      {showAnswers ? (
         <div id="toggle_answer_mode_button" onClick={toggleAnswersModeHandler}>
           {answersMode === "text"
             ? "Show Answers as Charts"
             : "Show Answers as Text (first 100 only)"}
         </div>
       ) : null}
-      {answersShown ? (
-        <h2>Answers to Survey ID {answersShownSurveyId.toString()}:</h2>
+      {showAnswers ? (
+        <h2>Answers to Survey ID {showAnswersForSurveyId.toString()}:</h2>
       ) : null}
-      {answersShown ? (
+      {showAnswers ? (
         answersMode === "text" ? (
           <SurveyAnswers
-            surveyId={answersShownSurveyId}
+            surveyId={showAnswersForSurveyId}
             employmentStatusFilter={employmentStatusFilter}
             workplaceFilter={workplaceFilter}
           />
         ) : (
           <SurveyChartAnswers
-            surveyId={answersShownSurveyId}
+            surveyId={showAnswersForSurveyId}
             employmentStatusFilter={employmentStatusFilter}
             workplaceFilter={workplaceFilter}
           />
