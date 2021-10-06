@@ -1,79 +1,76 @@
-# sparkle-frontend
+# Organise Tech Test
 
-**sparkle-frontend** is a small toy application that shows survey results.
+My response to the Organise Tech Test - an addition of filtration criteria
+to an App that displays data gathered from surveys.
 
-It retrieves the data from a separate application, which serves as a backend. The backend lives at http://212.71.234.97.
+## Usage
 
-The API endpoints for the backend are documented separately.
+1. Clone this repo and open the directory in your terminal.
+2. `yarn install`
+3. (Hopefully) access the app on http://localhost:3000/
 
-This application can show a selection of survey results as text.
+## Design Process
 
-It can also show pie charts that visualize the answers to survey questions.
+### Data Structure
 
-It has six components in addition to the 'main' (App) component:
+After reading the brief and having the kick-off meeting, I felt that understanding the data structures that I needed to
+manipulate would be a good way to understand the problem.
 
-* SurveyList
-* SurveyRow
-* SurveyAnswers
-* SurveyAnswer
-* SurveyChartAnswers
-* SurveyChartAnswer
+I set up a Postman collection for the task, and mapped each of the routes.
+From these routes, I mapped the different types of data and their relationships. This was a really useful reference throughout the task:
 
-The components work roughly like this:
+- **Survey**: meta information about a Survey, including an array of its questions and a Unique ID.
+- **Question**: The data about the specific question asked, with a unique ID, type, and the actual question text.
+  - Types seen: 'y/n', 'radio'
+- **Answer**: a response to a question, containing:
+  - A unique ID
+  - A Survey ID and a Question ID
+  - A **Member**
+  - The content of their answer
+- **Member**: an individual who has responded to a survey, with:
+  - A unique ID
+  - An employment status, seen: 'employed', 'self_employed', 'retired', 'other'
+  - A **Workplace**
+- **Workplace**: the place of work of a particular member
+  - Null if irrelevant to that particular member (e.g. retired)
+  - Unique ID and name if it is relevant
 
-## App shows SurveyList
+![A relationship diagram for the data in the task](./screenshots/relationship-diagram.png)
 
-**App** also manages most of the state in the application.
+### Filtering the Results
 
-There are four state variables in **App**:
+With the data structure in mind, I could explore the code in the App more easily. I identified that there were two places
+where there was data being fetched that I needed to filter, in both _SurveyAnswers_ and _SurveyChartAnswers_.
 
-* surveys
-* showAnswers
-* showAnswersForSurveyId
-* answersMode
+Both of these elements are children of SurveyList, so I decided to add the filtering criteria as state here in order to pass
+the same filters down to both at the same time.
 
-These are passed as props to **SurveyList**.
+The user sets the state of the filter with 2 inputs - I built these to be quite generic elements that we can reuse for any
+stateful input or selector going forward. I grouped these inputs with the existing buttons as a card that contains all data control
+elements.
 
-Also passed as props to **SurveyList** are three event handler functions:
+![The Data Control panel](./screenshots/data-controls.png)
 
-* hideAnswersClickHandler
-* toggleAnswersModeHandler
-* doShowAnswers
+A user can set the desired filters, which are then passed down to the children components and filtered out of the data with a helper function.
 
-**hideAnswersClickHandler** is called when the user clicks the 'Hide Answers' button, which appears in **SurveyList** when survey answers (in text or chart form) are being shown.
+### Making the app responsive
 
-**toggleAnswersModeHandler** is called when the user clicks the 'Show Answers as Charts' or 'Show Answers as Text' buttons, one of which should appear when survey answers are being shown. If answers are currently being shown as text, the 'Show Answers as Charts' button should be shown. If answers are being shown as charts, the 'Show Answers as Text' button should be shown.
+As 80% of the target users have been identified as mobile users, I then spent some time making the app responsive. I knew that
+I wouldn't have the time to add much manual styling (though I did implement SASS to make the little styling that I did do easier).
+Bootstrap was therefore a good choice, as there is a responsive table built in. It's not the most aesthetic implementation, and I would
+have definitely consulted with a designer if I was working in a production environment, but the end result has left the app functional
+on mobile.
 
-**doShowAnswers** is called when the user clicks one of the **SurveyRow**s.
+## What would I do after MVP?
 
-It's extremely possible that some or all of these functions would have been better placed somewhere else (such as in **SurveyList**).
+Once I had reached a working version of the app that I felt hit the technical requirements of the brief, I planned features
+and ideas that I would likely begin to implement as a next step. I worked on a couple of the ideas with some of the remaining time that I had budgeted for myself, and the others remain outstanding:
 
-## SurveyList shows SurveyRow rows and SurveyAnswers
-
-**SurveyList** shows a table whose rows are rendered **SurveyRow** components.
-
-If answers are being shown, **SurveyList** also shows the survey answers.
-
-If the answers are being shown in text mode (i.e., if **answersMode** is 'text'), these are shown by **SurveyAnswers**.
-
-If the answers are being shown as charts, these are shown by **SurveyChartAnswers**.
-
-**SurveyList** has some state which is passed down from **SurveyList**.
-
-## A SurveyRow includes 'high level' information about a single survey
-
-A **SurveyRow** includes 'high level' information about a single survey (the ID of the survey, the title of the survey, how many questions are in it, who made it, and when it was made), but no questions or answers.
-
-## SurveyAnswers shows a table whose rows are SurveyAnswer rows
-
-**SurveyAnswers** is shown when answers are shown in text mode.
-
-**SurveyAnswers** only shows 100 answers, because showing the tens of thousands of answers for a survey causes the browser to hang.
-
-## SurveyChartAnswers shows one SurveyChartAnswer (which is a single pie chart) for each question in the survey
-
-**SurveyChartAnswers** is shown when answers are shown in text mode.
-
-## SurveyChartAnswer renders a single pie chart that visualizes the answers to a single question
-
-**SurveyChartAnswer** uses the highcharts-react-official library to render a pie chart from survey answers.
+- [ ] If there are no results, display a message (on charts AND on Text).
+- [X] Add some very basic styling to improve the look of the app.
+- [X] Format the timestamp to be more human readable.
+- [ ] Ensure that the app works well with screen readers.
+- [ ] Refactor to use folders for components on everything (I like to do this as you can have a really clear separation of concerns for your components, with a specifically scoped SCSS file and unit tests nestled alongside really neatly.)
+- [ ] Testing (I like TDD, but I'm not great at it in React currently)
+- [ ] A loading element as data is pulled from the server
+- [ ] Redux brought in as now state is starting to get complicated
