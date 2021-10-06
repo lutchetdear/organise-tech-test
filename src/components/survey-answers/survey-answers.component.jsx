@@ -12,14 +12,13 @@ const SurveyAnswers = (props) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  const fetchAnswers = () => {
+  const fetchAnswers = async () => {
     try {
-      axios.get(API_URL).then((response) => {
-        // just get the first 100 rows; otherwise
-        // it's too many (thousands) and the browser hangs
-        // as it tries to render all the rows
-        setAnswers(response.data.slice(0, 100));
-      });
+      const response = await axios.get(API_URL);
+      // just get the first 100 rows; otherwise
+      // it's too many (thousands) and the browser hangs
+      // as it tries to render all the rows
+      setAnswers(response.data.slice(0, 100));
     } catch (e) {
       console.error(e);
       setError(true);
@@ -42,7 +41,7 @@ const SurveyAnswers = (props) => {
   if (loading)
     return <div className="col d-flex justify-content-center">Loading...</div>;
 
-  if (filteredAnswers.length === 0)
+  if (filteredAnswers.length === 0 && !loading)
     return (
       <div className="col d-flex justify-content-center">No results found!</div>
     );
