@@ -70,8 +70,10 @@ and ideas that I would likely begin to implement as a next step. I worked on a c
 - [x] Add some very basic styling to improve the look of the app.
 - [x] Format the timestamp to be more human readable.
 - [ ] Ensure that the app works well with screen readers.
-- [ ] Refactor to use folders for components on everything (I like to do this as you can have a really clear separation of concerns for your components, with a specifically scoped SCSS file and unit tests nestled alongside really neatly.)
+- [x] Refactor to use folders for components on everything (I like to do this as you can have a really clear separation of concerns for your components, with a specifically scoped SCSS file and unit tests nestled alongside really neatly.)
 - [ ] Testing (I like TDD, but I'm not great at it in React currently).
 - [ ] A loading element as data is pulled from the server.
 - [ ] Redux brought in as now state is starting to get complicated.
 - [ ] In SurveyAnswers, filter the results before slicing the array to 100, and track the count of matches.
+- [ ] Refactor server calls to be in their own utility files
+- [ ] Use React Router to create routes for each survey that display SurveyList as a view, with a separate view for selecting a survey to begin with, currently all logic sitting in SurveyList for this though.

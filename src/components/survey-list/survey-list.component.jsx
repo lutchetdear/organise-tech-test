@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-import SurveyRow from "../SurveyRow";
-import SurveyAnswers from "../SurveyAnswers";
-import SurveyChartAnswers from "../SurveyChartAnswers";
+import SurveyListRow from "../survey-list-row/survey-list-row.component";
+import SurveyAnswers from "../survey-answers/survey-answers.component";
+import SurveyChartAnswers from "../survey-chart-answers/survey-chart-answers.component";
 import FilterSelector from "../filter-selector/filter-selector.component";
 import FilterText from "../filter-text/filter-text.component";
 
@@ -39,7 +39,7 @@ const SurveyList = (props) => {
           </thead>
           <tbody>
             {surveys.map((survey) => (
-              <SurveyRow
+              <SurveyListRow
                 key={survey.id}
                 id={survey.id}
                 surveyData={survey}

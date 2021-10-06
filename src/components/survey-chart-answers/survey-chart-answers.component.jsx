@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import SurveyChartAnswer from "./SurveyChartAnswer";
+import SurveyChartAnswer from "../survey-chart-answer/survey-chart-answer.component";
 
 const SurveyChartAnswers = (props) => {
   const API_URL = "http://212.71.234.97/survey/" + props.surveyId;

@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 
-const SurveyRow = ({
+const SurveyListRow = ({
   surveyData: { id, title, question_count, owner_member_name, created_at },
   doShowAnswers,
 }) => {
@@ -18,4 +18,4 @@ const SurveyRow = ({
   );
 };
 
-export default SurveyRow;
+export default SurveyListRow;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-import { filterData } from "../utils/data.utils";
+import { filterData } from "../../utils/data.utils";
 
 const SurveyChartAnswer = (props) => {
   const API_URL =

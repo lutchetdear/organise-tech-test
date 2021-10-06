@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import SurveyAnswer from "./SurveyAnswer";
-import { filterData } from "../utils/data.utils";
+import SurveyAnswer from "../survey-answer/survey-answer.component";
+import { filterData } from "../../utils/data.utils";
 
 const SurveyAnswers = (props) => {
   const API_URL =
