@@ -67,10 +67,11 @@ Once I had reached a working version of the app that I felt hit the technical re
 and ideas that I would likely begin to implement as a next step. I worked on a couple of the ideas with some of the remaining time that I had budgeted for myself, and the others remain outstanding:
 
 - [ ] If there are no results, display a message (on charts AND on Text).
-- [X] Add some very basic styling to improve the look of the app.
-- [X] Format the timestamp to be more human readable.
+- [x] Add some very basic styling to improve the look of the app.
+- [x] Format the timestamp to be more human readable.
 - [ ] Ensure that the app works well with screen readers.
 - [ ] Refactor to use folders for components on everything (I like to do this as you can have a really clear separation of concerns for your components, with a specifically scoped SCSS file and unit tests nestled alongside really neatly.)
-- [ ] Testing (I like TDD, but I'm not great at it in React currently)
-- [ ] A loading element as data is pulled from the server
-- [ ] Redux brought in as now state is starting to get complicated
+- [ ] Testing (I like TDD, but I'm not great at it in React currently).
+- [ ] A loading element as data is pulled from the server.
+- [ ] Redux brought in as now state is starting to get complicated.
+- [ ] In SurveyAnswers, filter the results before slicing the array to 100, and track the count of matches.
