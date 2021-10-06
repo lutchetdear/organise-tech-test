@@ -36,7 +36,7 @@ const SurveyAnswers = (props) => {
   );
 
   return (
-    <div className="survey-answers">
+    <div className="survey-answers col d-flex justify-content-center">
       {error ? (
         <div>
           There was an error fetching data from our server, try again later!
