@@ -6,18 +6,33 @@ const SurveyChartAnswers = (props) => {
   const API_URL = "http://212.71.234.97/survey/" + props.surveyId;
 
   const [surveyData, setSurveyData] = useState([]);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const fetchSurveyData = () => {
-    axios.get(API_URL).then((response) => {
+  const fetchSurveyData = async () => {
+    try {
+      const response = await axios.get(API_URL);
       setSurveyData([response.data]);
-    });
+    } catch (e) {
+      console.error(e);
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     fetchSurveyData();
   }, [API_URL]);
 
-  return (
+  if (loading)
+    return <div className="col d-flex justify-content-center">Loading...</div>;
+
+  return error ? (
+    <div className="col d-flex justify-content-center">
+      There was an error fetching data from our server, try again later!
+    </div>
+  ) : (
     <div>
       {surveyData.length > 0
         ? surveyData[0].questions.map((question) => (

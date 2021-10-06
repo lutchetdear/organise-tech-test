@@ -9,6 +9,7 @@ const SurveyAnswers = (props) => {
     "http://212.71.234.97/survey/" + props.surveyId.toString() + "/answers";
 
   const [answers, setAnswers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
   const fetchAnswers = () => {
@@ -22,6 +23,8 @@ const SurveyAnswers = (props) => {
     } catch (e) {
       console.error(e);
       setError(true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -34,6 +37,9 @@ const SurveyAnswers = (props) => {
     props.employmentStatusFilter,
     answers
   );
+
+  if (loading)
+    return <div className="col d-flex justify-content-center">Loading...</div>;
 
   return (
     <div className="survey-answers col d-flex justify-content-center">
