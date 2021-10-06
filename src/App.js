@@ -30,7 +30,7 @@ const App = () => {
 
   const doShowAnswers = (event) => {
     const trElem = event.target.parentNode;
-    const surveyId = trElem.getAttribute("survey_id");
+    const surveyId = trElem.getAttribute("data-survey-id");
     setShowAnswers(true);
     setShowAnswersForSurveyId(surveyId);
   };

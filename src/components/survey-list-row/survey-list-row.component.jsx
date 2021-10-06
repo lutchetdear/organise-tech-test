@@ -8,7 +8,11 @@ const SurveyListRow = ({
   const formattedDate = moment(created_at).format("MMM Do YY");
 
   return (
-    <tr className="survey_row clickable" survey_id={id} onClick={doShowAnswers}>
+    <tr
+      className="survey_row clickable"
+      data-survey-id={id}
+      onClick={doShowAnswers}
+    >
       <td>{id}</td>
       <td>{title}</td>
       <td>{question_count}</td>
