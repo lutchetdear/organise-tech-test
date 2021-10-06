@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-import SurveyRow from "./SurveyRow";
-import SurveyAnswers from "./SurveyAnswers";
-import SurveyChartAnswers from "./SurveyChartAnswers";
-import FilterSelector from "./filter-selector/filter-selector.component";
-import FilterText from "./filter-text/filter-text.component";
+import SurveyRow from "../SurveyRow";
+import SurveyAnswers from "../SurveyAnswers";
+import SurveyChartAnswers from "../SurveyChartAnswers";
+import FilterSelector from "../filter-selector/filter-selector.component";
+import FilterText from "../filter-text/filter-text.component";
 
 const SurveyList = (props) => {
   const {
@@ -23,28 +23,31 @@ const SurveyList = (props) => {
   const [workplaceFilter, setWorkplaceFilter] = useState("");
 
   return (
-    <React.Fragment>
-      <table id="survey_list">
-        <thead>
-          <tr>
-            <td>Survey ID</td>
-            <td>Survey Title</td>
-            <td># of Questions</td>
-            <td>Created By</td>
-            <td>Created At</td>
-          </tr>
-        </thead>
-        <tbody>
-          {surveys.map((survey) => (
-            <SurveyRow
-              key={survey.id}
-              id={survey.id}
-              surveyData={survey}
-              doShowAnswers={doShowAnswers.bind(survey.id)}
-            />
-          ))}
-        </tbody>
-      </table>
+    <div className="survey-list">
+      <div className="table-responsive survey-list">
+        <table id="survey_list">
+          <thead>
+            <tr>
+              <td>Survey ID</td>
+              <td>Survey Title</td>
+              <td># of Questions</td>
+              <td>Created By</td>
+              <td>Created At</td>
+            </tr>
+          </thead>
+          <tbody>
+            {surveys.map((survey) => (
+              <SurveyRow
+                key={survey.id}
+                id={survey.id}
+                surveyData={survey}
+                doShowAnswers={doShowAnswers.bind(survey.id)}
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
+
       <FilterSelector
         label="Employment Status"
         choices={EMPLOYMENT_STATUSES}
@@ -71,11 +74,13 @@ const SurveyList = (props) => {
       ) : null}
       {showAnswers ? (
         answersMode === "text" ? (
-          <SurveyAnswers
-            surveyId={showAnswersForSurveyId}
-            employmentStatusFilter={employmentStatusFilter}
-            workplaceFilter={workplaceFilter}
-          />
+          <div className="table-responsive">
+            <SurveyAnswers
+              surveyId={showAnswersForSurveyId}
+              employmentStatusFilter={employmentStatusFilter}
+              workplaceFilter={workplaceFilter}
+            />
+          </div>
         ) : (
           <SurveyChartAnswers
             surveyId={showAnswersForSurveyId}
@@ -84,7 +89,7 @@ const SurveyList = (props) => {
           />
         )
       ) : null}
-    </React.Fragment>
+    </div>
   );
 };
 

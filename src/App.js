@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 
 import axios from "axios";
 
-import SurveyList from "./components/SurveyList";
+import SurveyList from "./components/survey-list/survey-list.component";
 import Header from "./components/header/header.component";
+
+import "bootstrap/dist/css/bootstrap.css";
 
 const App = () => {
   const [surveys, setSurveys] = useState([]);

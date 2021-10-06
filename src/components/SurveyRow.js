@@ -1,18 +1,21 @@
-import React from 'react'
+import React from "react";
+import moment from "moment";
 
-const SurveyRow = (props) => {
+const SurveyRow = ({
+  surveyData: { id, title, question_count, owner_member_name, created_at },
+  doShowAnswers,
+}) => {
+  const formattedDate = moment(created_at).format("MMM Do YY");
 
-    const surveyRowClickHandler = props.doShowAnswers
+  return (
+    <tr className="survey_row clickable" survey_id={id} onClick={doShowAnswers}>
+      <td>{id}</td>
+      <td>{title}</td>
+      <td>{question_count}</td>
+      <td>{owner_member_name}</td>
+      <td>{formattedDate}</td>
+    </tr>
+  );
+};
 
-    return (
-        <tr className="survey_row clickable" survey_id={props.surveyData.id} onClick={surveyRowClickHandler}>
-            <td>{props.surveyData.id}</td>
-            <td>{props.surveyData.title}</td>
-            <td>{props.surveyData.question_count}</td>
-            <td>{props.surveyData.owner_member_name}</td>
-            <td>{props.surveyData.created_at}</td>
-        </tr>
-    );
-}
-
-export default SurveyRow
+export default SurveyRow;
