@@ -66,7 +66,7 @@ on mobile.
 Once I had reached a working version of the app that I felt hit the technical requirements of the brief, I planned features
 and ideas that I would likely begin to implement as a next step. I worked on a couple of the ideas with some of the remaining time that I had budgeted for myself, and the others remain outstanding:
 
-- [ ] If there are no results, display a message (on charts AND on Text).
+- [x] If there are no results, display a message (on charts AND on Text).
 - [x] Add some very basic styling to improve the look of the app.
 - [x] Format the timestamp to be more human readable.
 - [ ] Ensure that the app works well with screen readers.
