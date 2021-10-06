@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import SurveyChartAnswer from "../survey-chart-answer/survey-chart-answer.component";
+import { filterData } from "../../utils/data.utils";
 
 const SurveyChartAnswers = (props) => {
   const API_URL = "http://212.71.234.97/survey/" + props.surveyId;
@@ -22,6 +23,7 @@ const SurveyChartAnswers = (props) => {
   };
 
   useEffect(() => {
+    setLoading(true);
     fetchSurveyData();
   }, [API_URL]);
 

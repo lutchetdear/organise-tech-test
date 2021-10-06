@@ -29,6 +29,7 @@ const SurveyAnswers = (props) => {
   };
 
   useEffect(() => {
+    setLoading(true);
     fetchAnswers();
   }, [API_URL]);
 
@@ -40,6 +41,11 @@ const SurveyAnswers = (props) => {
 
   if (loading)
     return <div className="col d-flex justify-content-center">Loading...</div>;
+
+  if (filteredAnswers.length === 0)
+    return (
+      <div className="col d-flex justify-content-center">No results found!</div>
+    );
 
   return (
     <div className="survey-answers col d-flex justify-content-center">
