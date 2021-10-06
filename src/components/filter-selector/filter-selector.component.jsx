@@ -7,7 +7,7 @@ const FilterSelector = ({ choices, label, changeHandler }) => {
   return (
     <div className="filter-selector">
       <label>{label}</label>
-      <select onChange={handleChange}>
+      <select onChange={handleChange} className="form-select">
         <option value="all">All</option>
         {choices.map((choice) => (
           <option value={choice} key={choice}>

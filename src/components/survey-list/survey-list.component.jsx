@@ -6,6 +6,8 @@ import SurveyChartAnswers from "../SurveyChartAnswers";
 import FilterSelector from "../filter-selector/filter-selector.component";
 import FilterText from "../filter-text/filter-text.component";
 
+import "./survey-list.styles.scss";
+
 const SurveyList = (props) => {
   const {
     showAnswers,
@@ -48,27 +50,32 @@ const SurveyList = (props) => {
         </table>
       </div>
 
-      <FilterSelector
-        label="Employment Status"
-        choices={EMPLOYMENT_STATUSES}
-        changeHandler={(newFilter) => setEmploymentStatusFilter(newFilter)}
-      />
-      <FilterText
-        label="Workplace"
-        changeHandler={(newFilter) => setWorkplaceFilter(newFilter)}
-      />
       {showAnswers ? (
-        <div id="hide_answers_button" onClick={hideAnswersClickHandler}>
-          Hide Answers
+        <div className="data-controls card mx-auto">
+          <h3>Data Controls</h3>
+          <FilterSelector
+            label="Employment Status"
+            choices={EMPLOYMENT_STATUSES}
+            changeHandler={(newFilter) => setEmploymentStatusFilter(newFilter)}
+          />
+          <FilterText
+            label="Workplace"
+            changeHandler={(newFilter) => setWorkplaceFilter(newFilter)}
+          />
+          <div id="hide_answers_button" onClick={hideAnswersClickHandler}>
+            Hide Answers
+          </div>
+          <div
+            id="toggle_answer_mode_button"
+            onClick={toggleAnswersModeHandler}
+          >
+            {answersMode === "text"
+              ? "Show Answers as Charts"
+              : "Show Answers as Text (first 100 only)"}
+          </div>
         </div>
       ) : null}
-      {showAnswers ? (
-        <div id="toggle_answer_mode_button" onClick={toggleAnswersModeHandler}>
-          {answersMode === "text"
-            ? "Show Answers as Charts"
-            : "Show Answers as Text (first 100 only)"}
-        </div>
-      ) : null}
+
       {showAnswers ? (
         <h2>Answers to Survey ID {showAnswersForSurveyId.toString()}:</h2>
       ) : null}

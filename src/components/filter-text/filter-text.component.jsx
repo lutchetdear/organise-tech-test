@@ -7,7 +7,11 @@ const FilterText = ({ label, changeHandler }) => {
   return (
     <div className="filter-text">
       <label>{label}</label>
-      <input type="text" onChange={(e) => handleChange(e)} />
+      <input
+        className="form-control"
+        type="text"
+        onChange={(e) => handleChange(e)}
+      />
     </div>
   );
 };
