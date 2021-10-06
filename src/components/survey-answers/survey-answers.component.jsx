@@ -54,7 +54,7 @@ const SurveyAnswers = (props) => {
           There was an error fetching data from our server, try again later!
         </div>
       ) : (
-        <div className="answer-table">
+        <div className="answer-table table-responsive">
           <table>
             <thead>
               <tr>
