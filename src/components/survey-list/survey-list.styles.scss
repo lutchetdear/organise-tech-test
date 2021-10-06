@@ -1,13 +1,21 @@
 .survey-list {
-  margin: 30px 50px;
-
   .data-controls {
     width: 70%;
     max-width: 300px;
-    text-align: center;
+    margin: 30px 0;
 
-    div {
-      margin: 5px;
+    h3 {
+      text-align: center;
     }
+
+    #hide_answers_button, #toggle_answer_mode_button {
+      margin: 5px;
+      text-align: center;
+    }
+  }
+
+  $breakpoint-tablet: 768px;
+  @media (min-width: $breakpoint-tablet) {
+    margin: 30px 50px;
   }
 }
