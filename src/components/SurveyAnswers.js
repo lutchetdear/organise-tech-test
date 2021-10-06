@@ -25,8 +25,8 @@ const SurveyAnswers = (props) => {
     }
   };
 
-  useEffect(async () => {
-    await fetchAnswers();
+  useEffect(() => {
+    fetchAnswers();
   }, [API_URL]);
 
   const filteredAnswers = filterData(
